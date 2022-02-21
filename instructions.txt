@@ -1,0 +1,77 @@
+1) Install dqn_zoo:
+git clone https://github.com/deepmind/dqn_zoo.git
+cd dqn_zoo/
+git checkout d798e3c6fdefe619708323c0b5a3f18f912a28c1
+
+and follow dqn_zoo instructions to install its python dependencies (listed in docker-requirement.txt).
+
+2) add the dqn_zoo directory to PYTHONPATH environment variable
+
+3) The experiments were run as follow
+
+
+######## SYNTHETIC EXPERIMENTS
+
+### SET n_jobs accordingly to the number of cpus available
+### DISABLE GPU
+export CUDA_VISIBLE_DEVICES=
+
+## FC CRAMER
+nohup python synthetic.py --net fc --layers 2 --nodes_fc 45 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss cramer  --njobs 30 &> fc_cramer.out &
+
+## FC QR0
+nohup python synthetic.py --net fc --layers 2 --nodes_fc 45 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss qr_loss --huber 0. --njobs 30 &> fc_qr0.out &
+
+## FC QR0.1
+nohup python synthetic.py --net fc --layers 2 --nodes_fc 45 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss qr_loss --huber 0.1 --njobs 30 &> fc_qr0.1.out &
+
+## FC QR1
+nohup python synthetic.py --net fc --layers 2 --nodes_fc 45 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss qr_loss --huber 1. --njobs 30 &> fc_qr1.out &
+
+## FC W1
+nohup python synthetic.py --net fc --layers 2 --nodes_fc 45 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss wasserstein1 --njobs 30 &> fc_w1.out &
+
+## NC CRAMER
+nohup python synthetic.py --net nc --layers 2 --nodes_nc 32 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss cramer --njobs 30 &> nc_cramer.out &
+
+## NC QR0
+nohup python synthetic.py --net nc --layers 2 --nodes_nc 32 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss qr_loss --huber 0. --njobs 30 &> nc_qr0.out &
+
+## NC SOFTPLUS CRAMER
+nohup python synthetic.py --net nc --softplus --layers 2 --nodes_nc 32 --lr 0.001 --epochs 1000 --trials 100 --bs 32 --loss cramer --njobs 30 &> nc_softplus_cramer.out &
+
+
+
+######## ATARI EXPERIMENTS
+
+
+Better performance is achieved by assigning the process to a single cpu using cpu affinity (taskset).
+Choose a proper cpu number to replace X and set output filenames accordingly
+Pseudo-code for launching:
+
+
+For GAME in <GAMES>
+	For SEED in 1,2,3
+
+		##NC_QR_DQN_1
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --nocramer  --huber_param=1.  --use_gym  --results_csv_path=res.csv &> out.txt &
+
+		##NC_QR_DQN_0 
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --nocramer  --huber_param=1.  --use_gym  --results_csv_path=res.csv --scaled-grad &> out.txt &
+
+
+		##NC_CR_DQN 
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --use_gym --results_csv_path=res.csv &> out.txt &
+
+		##QR_DQN_0
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --huber_param=0. --use_gym --results_csv_path=res.csv &> out.txt &
+
+		##CR_DQN 
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED>  --use_gym  --results_csv_path=res.csv &> out.txt &
+
+
+#### PLOT
+
+Works with Pandas 1.3.1
+
+python plot_atari_curves.py

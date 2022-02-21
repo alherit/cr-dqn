@@ -1,0 +1,105 @@
+nohup: ignoring input
+I0121 00:30:31.384752 140382441756480 run_atari_cramer_staircase.py:796] --additional_discount=0.99
+--batch_size=32
+--compress_state
+--cramer
+--environment_height=84
+--environment_name=surround
+--environment_width=84
+--eval_exploration_epsilon=0.001
+--noexp_bonus
+--exploration_epsilon_begin_value=1.0
+--exploration_epsilon_decay_frame_fraction=0.02
+--exploration_epsilon_end_value=0.01
+--huber_param=0.0
+--learn_period=16
+--learning_rate=5e-05
+--max_abs_reward=1.0
+--max_frames_per_episode=108000
+--max_global_grad_norm=10.0
+--min_replay_capacity_fraction=0.05
+--n_layers=1
+--n_nodes=512
+--nonc
+--num_action_repeats=4
+--num_eval_frames=500000
+--num_iterations=200
+--num_quantiles=201
+--num_stacked_frames=4
+--num_train_frames=1000000
+--optimizer_epsilon=3.109452736318408e-06
+--replay_capacity=1000000
+--results_csv_path=./resultsCramer_ncLR0.00005_s3.csv
+--seed=3
+--nosymm
+--target_network_update_period=40000
+--use_gym
+--nohelp
+--nohelpfull
+--nohelpshort
+--nohelpxml
+--noonly_check_args
+--nopdb_post_mortem
+--norun_with_pdb
+--norun_with_profiling
+--use_cprofile_for_profiling
+--noalsologtostderr
+--log_dir=
+--nologtostderr
+--showprefixforinfo
+--stderrthreshold=fatal
+--verbosity=0
+--test_random_seed=301
+--test_randomize_ordering_seed=
+--test_srcdir=
+--test_tmpdir=/tmp/absl_testing
+--xml_output_file=
+--nochex_assert_multiple_cpu_devices
+--chex_n_cpu_devices=1
+--chex_skip_pmap_variant_if_single_device
+--exclude_test_targets=
+--experimental_cpp_jit
+--jax_backend_target=local
+--nojax_check_tracer_leaks
+--nojax_debug_infs
+--nojax_debug_nans
+--nojax_disable_jit
+--nojax_disable_most_optimizations
+--nojax_enable_checks
+--nojax_enable_x64
+--nojax_host_callback_inline
+--jax_host_callback_max_queue_byte_size=256000000
+--nojax_log_compiles
+--jax_numpy_rank_promotion=raise
+--jax_omnistaging
+--jax_platform_name=gpu
+--nojax_skip_slow_tests
+--jax_test_dut=
+--jax_tracer_error_num_traceback_frames=5
+--jax_xla_backend=xla
+--num_generated_cases=10
+--test_targets=
+
+I0121 00:30:31.499351 140382441756480 run_atari_cramer_staircase.py:799] QR-DQN with Cramer on Atari on gpu.
+Traceback (most recent call last):
+  File "/home/nbondoux/alix/drn/run_atari_cramer_staircase.py", line 996, in <module>
+    app.run(main)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/absl/app.py", line 299, in run
+    _run_main(main, args)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/absl/app.py", line 250, in _run_main
+    sys.exit(main(argv))
+  File "/home/nbondoux/alix/drn/run_atari_cramer_staircase.py", line 821, in main
+    env = environment_builder()
+  File "/home/nbondoux/alix/drn/run_atari_cramer_staircase.py", line 812, in environment_builder
+    env = gym_atari.GymAtari(
+  File "/home/nbondoux/alix/dqn_zoo/dqn_zoo/gym_atari.py", line 67, in __init__
+    self._gym_env = gym.make(game + _GYM_ID_SUFFIX)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/gym/envs/registration.py", line 145, in make
+    return registry.make(id, **kwargs)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/gym/envs/registration.py", line 90, in make
+    env = spec.make(**kwargs)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/gym/envs/registration.py", line 60, in make
+    env = cls(**_kwargs)
+  File "/home/nbondoux/zoo2/lib/python3.8/site-packages/gym/envs/atari/atari_env.py", line 55, in __init__
+    raise IOError(msg % (game, self.game_path))
+OSError: You asked for game surround but path /home/nbondoux/zoo2/lib/python3.8/site-packages/atari_py/atari_roms/surround.bin does not exist
