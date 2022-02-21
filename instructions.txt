@@ -57,8 +57,7 @@ For GAME in <GAMES>
 		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --nocramer  --huber_param=1.  --use_gym  --results_csv_path=res.csv &> out.txt &
 
 		##NC_QR_DQN_0 
-		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --nocramer  --huber_param=1.  --use_gym  --results_csv_path=res.csv --scaled-grad &> out.txt &
-
+		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --nocramer  --huber_param=0.  --use_gym  --results_csv_path=res.csv --scale_grad &> out.txt &
 
 		##NC_CR_DQN 
 		nohup taskset -c X python run_atari.py --environment_name=<GAME> --seed=<SEED> --nc --use_gym --results_csv_path=res.csv &> out.txt &
